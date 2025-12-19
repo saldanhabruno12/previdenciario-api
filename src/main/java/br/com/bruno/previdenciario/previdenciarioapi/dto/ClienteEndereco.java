@@ -3,6 +3,7 @@ package br.com.bruno.previdenciario.previdenciarioapi.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+//validação dos campos obrigatórios na requisição
 public record ClienteEndereco (
         @NotBlank
         String logradouro,
