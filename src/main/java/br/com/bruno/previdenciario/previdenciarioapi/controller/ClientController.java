@@ -1,6 +1,7 @@
 package br.com.bruno.previdenciario.previdenciarioapi.controller;
 
 import br.com.bruno.previdenciario.previdenciarioapi.dto.ClienteRequest;
+import br.com.bruno.previdenciario.previdenciarioapi.dto.DadosAtualizacoes;
 import br.com.bruno.previdenciario.previdenciarioapi.dto.DadosListagemCliente;
 import br.com.bruno.previdenciario.previdenciarioapi.model.Client;
 import br.com.bruno.previdenciario.previdenciarioapi.model.ClienteRepository;
@@ -25,17 +26,31 @@ public class ClientController {
     @PostMapping
     @Transactional
     //verifica se os campos da requisição são válidos e os guarda no banco de dados
-    public void cadastrar(@RequestBody @Valid ClienteRequest cliente){
+    public void create(@RequestBody @Valid ClienteRequest cliente){
 
         repository.save(new Client(cliente));
     }
 
     @GetMapping
-    public Page<DadosListagemCliente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+    public Page<DadosListagemCliente> read(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
 
-        return repository.findAll(paginacao).map(DadosListagemCliente::new);
+        return repository.findAllByStatusTrue(paginacao).map(DadosListagemCliente::new);
     }
 
+    @PutMapping
+    @Transactional
+    //uso de outro dto com os dados passíveis de mudança
+    public void update(@RequestBody @Valid DadosAtualizacoes dados){
+        var cliente = repository.getReferenceById(dados.id());
+        cliente.atualizarDados(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id){
+        var cliente = repository.getReferenceById(id);
+        cliente.desativarDados();
+    }
 
 
 }
