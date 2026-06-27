@@ -3,6 +3,7 @@ package br.com.bruno.previdenciario.previdenciarioapi.model.user;
 import br.com.bruno.previdenciario.previdenciarioapi.model.Client;
 import br.com.bruno.previdenciario.previdenciarioapi.model.Pessoa;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -22,10 +23,16 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Usuario extends Pessoa implements UserDetails {
+
     private String login;
+
     private String senha;
+
     private UsuarioRole role;
+
+    @OneToMany(mappedBy = "procurador")
     private List<Client> clientes;
+
     private double saldoRepasse;
 
     @Override

@@ -4,6 +4,7 @@ import br.com.bruno.previdenciario.previdenciarioapi.dto.ClienteEndereco;
 import br.com.bruno.previdenciario.previdenciarioapi.dto.ClienteRequest;
 import br.com.bruno.previdenciario.previdenciarioapi.dto.DadosAtualizacoes;
 import br.com.bruno.previdenciario.previdenciarioapi.endereco.Endereco;
+import br.com.bruno.previdenciario.previdenciarioapi.model.user.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,10 @@ public class Client extends Pessoa{
 
     @Embedded
     private Endereco endereco;
+
+    @ManyToOne
+    @JoinColumn(name = "procurador_id")
+    private Usuario procurador;
 
     //construtor para requisição dos dados pessoais
     public Client(@Valid ClienteRequest request) {

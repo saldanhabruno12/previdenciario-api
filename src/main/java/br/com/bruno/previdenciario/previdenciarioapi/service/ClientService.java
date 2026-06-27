@@ -1,6 +1,7 @@
 package br.com.bruno.previdenciario.previdenciarioapi.service;
 
 import br.com.bruno.previdenciario.previdenciarioapi.model.Client;
+import jakarta.persistence.OneToMany;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
