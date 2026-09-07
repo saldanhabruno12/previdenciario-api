@@ -15,6 +15,10 @@ public class Pessoa {
 
     protected String nome;
 
+    protected String email;
+
+    protected String cpf;
+
     public Long getId() {
         return id;
     }
@@ -27,13 +31,6 @@ public class Pessoa {
         return email;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    protected String email;
-
-    protected String cpf;
 
     protected Pessoa(String nome, String email, String cpf){
         this.nome = nome;

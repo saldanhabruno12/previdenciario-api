@@ -2,9 +2,7 @@ package br.com.bruno.previdenciario.previdenciarioapi.model.user;
 
 import br.com.bruno.previdenciario.previdenciarioapi.model.Client;
 import br.com.bruno.previdenciario.previdenciarioapi.model.Pessoa;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,17 +14,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "usuarios")
 @Entity(name = "users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Usuario extends Pessoa implements UserDetails {
+public class Usuario implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String login;
 
-    private String senha;
+    private String password;
 
     private UsuarioRole role;
 
@@ -34,6 +35,12 @@ public class Usuario extends Pessoa implements UserDetails {
     private List<Client> clientes;
 
     private double saldoRepasse;
+
+    public Usuario(String login, String password, UsuarioRole role){
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -18,9 +18,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Client extends Pessoa{
+public class Client {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    protected String nome;
+
+    protected String email;
 
     private Boolean status;
+
+    private String cpf;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
 
     @Embedded
     private Endereco endereco;
@@ -31,7 +57,9 @@ public class Client extends Pessoa{
 
     //construtor para requisição dos dados pessoais
     public Client(@Valid ClienteRequest request) {
-        super(request.nome(), request.email(), request.cpf());
+        this.nome = request.nome();
+        this.email = request.email();
+        this.cpf = request.cpf();
         this.status = true;
         this.endereco = new Endereco(request.endereco());
     }
