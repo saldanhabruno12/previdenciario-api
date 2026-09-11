@@ -29,6 +29,7 @@ public class Usuario implements UserDetails {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private UsuarioRole role;
 
     @OneToMany(mappedBy = "procurador")
@@ -50,7 +51,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return this.password;
     }
 
     @Override
